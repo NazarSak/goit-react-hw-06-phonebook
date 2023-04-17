@@ -5,23 +5,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/ContactSlice';
 import { nanoid } from '@reduxjs/toolkit';
 
-export default function Form({ onSubmit }) {
+export default function Form() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(state => state.contacts.items);
+  const contacts = useSelector(state => state.contacts.contacts);
   const dispatch = useDispatch();
 
   const nameInputId = shortid.generate();
   const nameInputIdsec = shortid.generate();
 
+  const string = contacts.filter(
+    el => el.name.toLowerCase() === name.toLowerCase()
+  );
+
   const handleSubmit = e => {
     e.preventDefault();
 
-    const string = contacts.filter(el => el.name.toLowerCase() === name.toLowerCase());
-
     const hendleCoincidence = name => {
-      alert(`${name} is already in contacts`); 
+      alert(`${name} is already in contacts`);
       return reset();
     };
 
@@ -31,23 +33,7 @@ export default function Form({ onSubmit }) {
       id: nanoid(),
     };
 
-// string.length !== 0 ? hendleCoincidence(name) : 
-
-
-if (string.length !== 0) {
-  hendleCoincidence(name) 
-  reset()
-} else if (string.length === 0) {
-  dispatch(addContact(contact));
-}
-
-    // if (contactInList) {
-    //   alert(`${name} is already in contacts`);
-    //   return reset();
-    // }
-
-   
-  
+    string.length !== 0 ? hendleCoincidence(name) :  dispatch(addContact(contact));
 
    
 

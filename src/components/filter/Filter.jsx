@@ -11,17 +11,15 @@ const Filter = () => {
     <>
       {contacts.length > 0 && (
         <FilterDiv>
-          <FilterLabel >
+          <FilterLabel>
             Find contacts by name
             <FilterInput
               type="text"
               name="filter"
               onChange={event => {
                 const { value } = event.target;
-                const action = filterContact(value);
-                dispatch(action);
+                dispatch(filterContact(value));
               }}
-            
             />
           </FilterLabel>
         </FilterDiv>
@@ -30,9 +28,4 @@ const Filter = () => {
   );
 };
 
-
-
 export default Filter;
-
-
-
