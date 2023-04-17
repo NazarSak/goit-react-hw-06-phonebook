@@ -33,9 +33,9 @@ export default function Form() {
       id: nanoid(),
     };
 
-    string.length !== 0 ? hendleCoincidence(name) :  dispatch(addContact(contact));
-
-   
+    string.length !== 0
+      ? hendleCoincidence(name)
+      : dispatch(addContact(contact));
 
     reset();
   };

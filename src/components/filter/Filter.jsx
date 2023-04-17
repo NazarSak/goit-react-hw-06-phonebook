@@ -1,29 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { selectVisibleContacts } from 'redux/selector';
+import { useDispatch } from 'react-redux';
+// import { selectVisibleContacts } from 'redux/selector';
 import { filterContact } from 'redux/filterSlice';
 import { FilterDiv, FilterLabel, FilterInput } from './filter.styled';
 
+
+
 const Filter = () => {
-  const contacts = useSelector(selectVisibleContacts);
+  // const contacts = useSelector(selectVisibleContacts);
   const dispatch = useDispatch();
 
   return (
     <>
-      {contacts.length > 0 && (
+    
         <FilterDiv>
           <FilterLabel>
             Find contacts by name
             <FilterInput
               type="text"
               name="filter"
-              onChange={event => {
-                const { value } = event.target;
-                dispatch(filterContact(value));
-              }}
+              onChange={e => dispatch(filterContact(e.target.value))}
             />
           </FilterLabel>
         </FilterDiv>
-      )}
+      
     </>
   );
 };
