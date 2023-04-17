@@ -24,7 +24,6 @@ export default function Form() {
 
     const hendleCoincidence = name => {
       alert(`${name} is already in contacts`);
-      return reset();
     };
 
     const contact = {
@@ -35,9 +34,7 @@ export default function Form() {
 
     string.length !== 0
       ? hendleCoincidence(name)
-      : dispatch(addContact(contact));
-
-    reset();
+      : dispatch(addContact(contact)) && reset();
   };
 
   const reset = () => {
