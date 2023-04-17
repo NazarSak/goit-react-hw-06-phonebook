@@ -1,11 +1,16 @@
 import shortid from 'shortid';
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FormContact, LabelContact, FormDiv, FormInput } from './form.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/ContactSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
 export default function Form({ onSubmit }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(state => state.contacts.items);
+  const dispatch = useDispatch();
 
   const nameInputId = shortid.generate();
   const nameInputIdsec = shortid.generate();
@@ -13,7 +18,38 @@ export default function Form({ onSubmit }) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    onSubmit({ name, number });
+    const string = contacts.filter(el => el.name.toLowerCase() === name.toLowerCase());
+
+    const hendleCoincidence = name => {
+      alert(`${name} is already in contacts`); 
+      return reset();
+    };
+
+    const contact = {
+      name,
+      number,
+      id: nanoid(),
+    };
+
+// string.length !== 0 ? hendleCoincidence(name) : 
+
+
+if (string.length !== 0) {
+  hendleCoincidence(name) 
+  reset()
+} else if (string.length === 0) {
+  dispatch(addContact(contact));
+}
+
+    // if (contactInList) {
+    //   alert(`${name} is already in contacts`);
+    //   return reset();
+    // }
+
+   
+  
+
+   
 
     reset();
   };
@@ -74,7 +110,3 @@ export default function Form({ onSubmit }) {
     </FormContact>
   );
 }
-
-Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
